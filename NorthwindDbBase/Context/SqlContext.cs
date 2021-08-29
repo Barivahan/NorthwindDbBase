@@ -21,7 +21,7 @@ namespace NorthwindDbBase.Context
         //}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(DESKTOP-UN8K0C5\\SQLEXPRESS;Database=FluentAPI;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-UN8K0C5\\SQLEXPRESS;Database=NorthwindFluentApi;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
