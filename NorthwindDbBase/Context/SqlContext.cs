@@ -12,8 +12,8 @@ namespace NorthwindDbBase.Context
     public class SqlContext : DbContext
     {
         public DbSet<Categories> Categories { get; set; }
-        //public DbSet<Products> Products { get; set; }
-        //public DbSet<Suppliers> Suppliers { get; set; }
+        public DbSet<Products> Products { get; set; }
+        public DbSet<Suppliers> Suppliers { get; set; }
 
         //public SqlContext()
         //{
@@ -27,6 +27,8 @@ namespace NorthwindDbBase.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration<Categories>(new CategorieConfiguration());
+            modelBuilder.ApplyConfiguration<Products>(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration<Suppliers>(new SupplierConfiguration());
         }
     }
 }
