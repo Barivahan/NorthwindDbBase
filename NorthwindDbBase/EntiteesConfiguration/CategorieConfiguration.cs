@@ -18,7 +18,6 @@ namespace NorthwindDbBase.EntiteesConfiguration
             builder.Property(p => p.Description).HasColumnType("NTEXT");
             builder.Property(p => p.Picture).HasColumnType("IMAGE");
             builder.HasIndex(p => p.CategoryName);
-            
         }
     }
 }
