@@ -33,7 +33,8 @@ namespace NorthwindDbBase.Context
             modelBuilder.ApplyConfiguration<Orders>(new OrderConfiguration());
             modelBuilder.ApplyConfiguration<Shippers>(new ShipperConfiguration());
             modelBuilder.ApplyConfiguration<Customers>(new CustomerConfiguration());
-
+            modelBuilder.ApplyConfiguration<CustomerCustomerDemo>(new CustomerCustomerDemoConfiguration());
+            modelBuilder.ApplyConfiguration<CustomerDemographics>(new CustomerDemographicConfiguration());
         }
     }
 }
