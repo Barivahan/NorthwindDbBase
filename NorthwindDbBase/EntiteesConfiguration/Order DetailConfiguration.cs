@@ -10,7 +10,6 @@ namespace NorthwindDbBase.EntiteesConfiguration
     {
         public void Configure(EntityTypeBuilder<Order_Details> builder)
         {
-
             builder.HasKey(p => new { p.OrderID, p.ProductID });
             builder.HasIndex(p => p.OrderID);
             builder.HasIndex(p => p.ProductID);
@@ -32,8 +31,6 @@ namespace NorthwindDbBase.EntiteesConfiguration
             builder.HasCheckConstraint("CK_Discount", " Discount >= 0 and Discount <= 1");
             builder.HasCheckConstraint("CK_Quantity", "Quantity >= 0");
             builder.HasCheckConstraint("CK_UnitPrice", "UnitPrice >= 0");
-
-
         }
     }
 }
