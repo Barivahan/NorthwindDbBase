@@ -21,7 +21,7 @@ namespace NorthwindDbBase.Context
         //}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-UN8K0C5\\SQLEXPRESS;Database=NorthwindFluentApi;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\ProjectsV13;Database=NorthwindFluentApi;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,7 +30,9 @@ namespace NorthwindDbBase.Context
             modelBuilder.ApplyConfiguration<Products>(new ProductConfiguration());
             modelBuilder.ApplyConfiguration<Suppliers>(new SupplierConfiguration());
             modelBuilder.ApplyConfiguration<Order_Details>(new Order_DetailConfiguration());
-            
+            modelBuilder.ApplyConfiguration<Orders>(new OrderConfiguration());
+
+
 
         }
     }

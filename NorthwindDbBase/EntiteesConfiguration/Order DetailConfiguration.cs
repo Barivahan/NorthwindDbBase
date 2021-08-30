@@ -12,13 +12,16 @@ namespace NorthwindDbBase.EntiteesConfiguration
         {
 
             builder.HasKey(p => new {p.OrderID, p.ProductID });
+
             builder.HasOne<Orders>()
                 .WithMany()
-                .HasForeignKey(p => p.OrderID);
+                .HasForeignKey(p => p.OrderID)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne<Products>()
                 .WithMany()
-                .HasForeignKey(p => p.ProductID);
+                .HasForeignKey(p => p.ProductID)
+                .OnDelete(DeleteBehavior.NoAction);
 
 
 
