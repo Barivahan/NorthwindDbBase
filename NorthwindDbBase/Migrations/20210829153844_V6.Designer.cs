@@ -10,8 +10,8 @@ using NorthwindDbBase.Context;
 namespace NorthwindDbBase.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20210829122656_V1")]
-    partial class V1
+    [Migration("20210829153844_V6")]
+    partial class V6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,52 @@ namespace NorthwindDbBase.Migrations
                     b.HasIndex("CategoryName");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("NorthwindDbBase.Entitees.Order_Details", b =>
+                {
+                    b.Property<int>("OrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Discount")
+                        .HasColumnType("real");
+
+                    b.Property<int?>("OrdersOrderID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductsProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("OrderID", "ProductID");
+
+                    b.HasIndex("OrdersOrderID");
+
+                    b.HasIndex("ProductID");
+
+                    b.HasIndex("ProductsProductID");
+
+                    b.ToTable("Order_Details");
+                });
+
+            modelBuilder.Entity("NorthwindDbBase.Entitees.Orders", b =>
+                {
+                    b.Property<int>("OrderID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("OrderID");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("NorthwindDbBase.Entitees.Products", b =>
@@ -169,6 +215,33 @@ namespace NorthwindDbBase.Migrations
                     b.HasIndex("PostalCode");
 
                     b.ToTable("Suppliers");
+                });
+
+            modelBuilder.Entity("NorthwindDbBase.Entitees.Order_Details", b =>
+                {
+                    b.HasOne("NorthwindDbBase.Entitees.Orders", null)
+                        .WithMany()
+                        .HasForeignKey("OrderID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NorthwindDbBase.Entitees.Orders", "Orders")
+                        .WithMany()
+                        .HasForeignKey("OrdersOrderID");
+
+                    b.HasOne("NorthwindDbBase.Entitees.Products", null)
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NorthwindDbBase.Entitees.Products", "Products")
+                        .WithMany()
+                        .HasForeignKey("ProductsProductID");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("NorthwindDbBase.Entitees.Products", b =>

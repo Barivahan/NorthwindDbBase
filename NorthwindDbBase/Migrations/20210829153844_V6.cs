@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NorthwindDbBase.Migrations
 {
-    public partial class V1 : Migration
+    public partial class V6 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,6 +20,18 @@ namespace NorthwindDbBase.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.CategoryID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderID);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,10 +92,66 @@ namespace NorthwindDbBase.Migrations
                         principalColumn: "SupplierID");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Order_Details",
+                columns: table => new
+                {
+                    OrderID = table.Column<int>(type: "int", nullable: false),
+                    ProductID = table.Column<int>(type: "int", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    Discount = table.Column<float>(type: "real", nullable: false),
+                    ProductsProductID = table.Column<int>(type: "int", nullable: true),
+                    OrdersOrderID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order_Details", x => new { x.OrderID, x.ProductID });
+                    table.ForeignKey(
+                        name: "FK_Order_Details_Orders_OrderID",
+                        column: x => x.OrderID,
+                        principalTable: "Orders",
+                        principalColumn: "OrderID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Order_Details_Orders_OrdersOrderID",
+                        column: x => x.OrdersOrderID,
+                        principalTable: "Orders",
+                        principalColumn: "OrderID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Order_Details_Products_ProductID",
+                        column: x => x.ProductID,
+                        principalTable: "Products",
+                        principalColumn: "ProductID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Order_Details_Products_ProductsProductID",
+                        column: x => x.ProductsProductID,
+                        principalTable: "Products",
+                        principalColumn: "ProductID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_CategoryName",
                 table: "Categories",
                 column: "CategoryName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_Details_OrdersOrderID",
+                table: "Order_Details",
+                column: "OrdersOrderID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_Details_ProductID",
+                table: "Order_Details",
+                column: "ProductID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Order_Details_ProductsProductID",
+                table: "Order_Details",
+                column: "ProductsProductID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryID",
@@ -113,6 +181,12 @@ namespace NorthwindDbBase.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Order_Details");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
             migrationBuilder.DropTable(
                 name: "Products");
 

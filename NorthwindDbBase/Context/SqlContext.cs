@@ -29,6 +29,9 @@ namespace NorthwindDbBase.Context
             modelBuilder.ApplyConfiguration<Categories>(new CategorieConfiguration());
             modelBuilder.ApplyConfiguration<Products>(new ProductConfiguration());
             modelBuilder.ApplyConfiguration<Suppliers>(new SupplierConfiguration());
+            modelBuilder.ApplyConfiguration<Order_Details>(new Order_DetailConfiguration());
+            
+
         }
     }
 }

@@ -20,5 +20,7 @@ namespace NorthwindDbBase.Entitees
         public short? ReorderLevel { get; set; }
         public bool? Discontinued { get; set; }
 
+        
+
     }
 }
