@@ -24,7 +24,7 @@ namespace NorthwindDbBase.EntiteesConfiguration
                 .HasForeignKey(p => p.ProductID)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(p => p.UnitPrice).HasColumnType("MONEY").HasDefaultValue(new decimal());
+            builder.Property(p => p.UnitPrice).HasColumnType("MONEY").HasDefaultValue(0);
             builder.Property(p => p.Quantity).HasColumnType("SMALLINT").HasDefaultValue(1);
             builder.Property(p => p.Discount).HasColumnType("Real").HasDefaultValue(0);
 

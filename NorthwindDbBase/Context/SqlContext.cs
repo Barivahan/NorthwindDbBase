@@ -31,8 +31,8 @@ namespace NorthwindDbBase.Context
             modelBuilder.ApplyConfiguration<Suppliers>(new SupplierConfiguration());
             modelBuilder.ApplyConfiguration<Order_Details>(new Order_DetailConfiguration());
             modelBuilder.ApplyConfiguration<Orders>(new OrderConfiguration());
-
-
+            modelBuilder.ApplyConfiguration<Shippers>(new ShipperConfiguration());
+            modelBuilder.ApplyConfiguration<Customers>(new CustomerConfiguration());
 
         }
     }

@@ -23,22 +23,23 @@ namespace NorthwindDbBase.EntiteesConfiguration
             builder.Property(p => p.ShipPostalCode).HasMaxLength(10);
             builder.Property(p => p.ShipCountry).HasMaxLength(15);
 
-          //  To do 
+            builder.HasOne<Shippers>()
+            .WithMany()
+            .HasForeignKey(p => p.ShipVia)
+            .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne<Customers>()
+            .WithMany()
+            .HasForeignKey(p => p.CustomerID)
+            .OnDelete(DeleteBehavior.NoAction);
+
+            //  To do 
 
             //builder.HasOne<Employees>()
             //.WithMany()
             //.HasForeignKey(p => p.EmployeeID)
             //.OnDelete(DeleteBehavior.NoAction);
 
-            //builder.HasOne<Customers>()
-            //.WithMany()
-            //.HasForeignKey(p => p.CustomerID)
-            //.OnDelete(DeleteBehavior.NoAction);
-
-            //builder.HasOne<Shippers>()
-            //.WithMany()
-            //.HasForeignKey(p => p.ShipVia)
-            //.OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

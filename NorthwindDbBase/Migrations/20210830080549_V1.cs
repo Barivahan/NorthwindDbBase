@@ -23,28 +23,38 @@ namespace NorthwindDbBase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Customers",
                 columns: table => new
                 {
-                    OrderID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerID = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
-                    EmployeeID = table.Column<int>(type: "int", nullable: true),
-                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RequiredDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ShippedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ShipVia = table.Column<int>(type: "int", nullable: true),
-                    Freight = table.Column<decimal>(type: "MONEY", nullable: true, defaultValue: 0m),
-                    ShipName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
-                    ShipAddress = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: true),
-                    ShipCity = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    ShipRegion = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    ShipPostalCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    ShipCountry = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true)
+                    CustomerID = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    CompanyName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    ContactName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    ContactTitle = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: true),
+                    City = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    Region = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: true),
+                    Fax = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.OrderID);
+                    table.PrimaryKey("PK_Customers", x => x.CustomerID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Shippers",
+                columns: table => new
+                {
+                    ShipperID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Shippers", x => x.ShipperID);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,6 +78,41 @@ namespace NorthwindDbBase.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Suppliers", x => x.SupplierID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerID = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
+                    EmployeeID = table.Column<int>(type: "int", nullable: true),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RequiredDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ShippedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ShipVia = table.Column<int>(type: "int", nullable: true),
+                    Freight = table.Column<decimal>(type: "MONEY", nullable: true, defaultValue: 0m),
+                    ShipName = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    ShipAddress = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: true),
+                    ShipCity = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    ShipRegion = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    ShipPostalCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    ShipCountry = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderID);
+                    table.ForeignKey(
+                        name: "FK_Orders_Customers_CustomerID",
+                        column: x => x.CustomerID,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerID");
+                    table.ForeignKey(
+                        name: "FK_Orders_Shippers_ShipVia",
+                        column: x => x.ShipVia,
+                        principalTable: "Shippers",
+                        principalColumn: "ShipperID");
                 });
 
             migrationBuilder.CreateTable(
@@ -139,6 +184,26 @@ namespace NorthwindDbBase.Migrations
                 column: "CategoryName");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Customers_City",
+                table: "Customers",
+                column: "City");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_CompanyName",
+                table: "Customers",
+                column: "CompanyName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_PostalCode",
+                table: "Customers",
+                column: "PostalCode");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_Region",
+                table: "Customers",
+                column: "Region");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Order_Details_OrderID",
                 table: "Order_Details",
                 column: "OrderID");
@@ -147,6 +212,16 @@ namespace NorthwindDbBase.Migrations
                 name: "IX_Order_Details_ProductID",
                 table: "Order_Details",
                 column: "ProductID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CustomerID",
+                table: "Orders",
+                column: "CustomerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_ShipVia",
+                table: "Orders",
+                column: "ShipVia");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryID",
@@ -184,6 +259,12 @@ namespace NorthwindDbBase.Migrations
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Shippers");
 
             migrationBuilder.DropTable(
                 name: "Categories");

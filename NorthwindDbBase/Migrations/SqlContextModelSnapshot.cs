@@ -44,6 +44,66 @@ namespace NorthwindDbBase.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("NorthwindDbBase.Entitees.Customers", b =>
+                {
+                    b.Property<string>("CustomerID")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("ContactName")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("ContactTitle")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Fax")
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
+
+                    b.Property<string>("PostalCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Region")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("CustomerID");
+
+                    b.HasIndex("City");
+
+                    b.HasIndex("CompanyName");
+
+                    b.HasIndex("PostalCode");
+
+                    b.HasIndex("Region");
+
+                    b.ToTable("Customers");
+                });
+
             modelBuilder.Entity("NorthwindDbBase.Entitees.Order_Details", b =>
                 {
                     b.Property<int>("OrderID")
@@ -139,6 +199,10 @@ namespace NorthwindDbBase.Migrations
 
                     b.HasKey("OrderID");
 
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("ShipVia");
+
                     b.ToTable("Orders");
                 });
 
@@ -205,6 +269,27 @@ namespace NorthwindDbBase.Migrations
                     b.HasCheckConstraint("CK_UnitsInStock", "UnitsInStock >= 0");
 
                     b.HasCheckConstraint("CK_UnitsOnOrder", "UnitsOnOrder >= 0");
+                });
+
+            modelBuilder.Entity("NorthwindDbBase.Entitees.Shippers", b =>
+                {
+                    b.Property<int>("ShipperID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(24)
+                        .HasColumnType("nvarchar(24)");
+
+                    b.HasKey("ShipperID");
+
+                    b.ToTable("Shippers");
                 });
 
             modelBuilder.Entity("NorthwindDbBase.Entitees.Suppliers", b =>
@@ -280,6 +365,19 @@ namespace NorthwindDbBase.Migrations
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("NorthwindDbBase.Entitees.Orders", b =>
+                {
+                    b.HasOne("NorthwindDbBase.Entitees.Customers", null)
+                        .WithMany()
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("NorthwindDbBase.Entitees.Shippers", null)
+                        .WithMany()
+                        .HasForeignKey("ShipVia")
+                        .OnDelete(DeleteBehavior.NoAction);
                 });
 
             modelBuilder.Entity("NorthwindDbBase.Entitees.Products", b =>
