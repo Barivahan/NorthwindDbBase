@@ -11,7 +11,9 @@ namespace NorthwindDbBase.EntiteesConfiguration
         public void Configure(EntityTypeBuilder<Order_Details> builder)
         {
 
-            builder.HasKey(p => new {p.OrderID, p.ProductID });
+            builder.HasKey(p => new { p.OrderID, p.ProductID });
+            builder.HasIndex(p => p.OrderID);
+            builder.HasIndex(p => p.ProductID);
 
             builder.HasOne<Orders>()
                 .WithMany()
@@ -23,6 +25,13 @@ namespace NorthwindDbBase.EntiteesConfiguration
                 .HasForeignKey(p => p.ProductID)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.Property(p => p.UnitPrice).HasColumnType("MONEY").HasDefaultValue(new decimal());
+            builder.Property(p => p.Quantity).HasColumnType("SMALLINT").HasDefaultValue(1);
+            builder.Property(p => p.Discount).HasColumnType("Real").HasDefaultValue(0);
+
+            builder.HasCheckConstraint("CK_Discount", " Discount >= 0 and Discount <= 1");
+            builder.HasCheckConstraint("CK_Quantity", "Quantity >= 0");
+            builder.HasCheckConstraint("CK_UnitPrice", "UnitPrice >= 0");
 
 
         }
