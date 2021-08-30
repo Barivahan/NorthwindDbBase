@@ -33,13 +33,10 @@ namespace NorthwindDbBase.EntiteesConfiguration
             .HasForeignKey(p => p.CustomerID)
             .OnDelete(DeleteBehavior.NoAction);
 
-            //  To do 
-
-            //builder.HasOne<Employees>()
-            //.WithMany()
-            //.HasForeignKey(p => p.EmployeeID)
-            //.OnDelete(DeleteBehavior.NoAction);
-
+            builder.HasOne<Employees>()
+            .WithMany()
+            .HasForeignKey(p => p.EmployeeID)
+            .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
