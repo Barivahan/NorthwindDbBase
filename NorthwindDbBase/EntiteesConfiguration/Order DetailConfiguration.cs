@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NorthwindDbBase.Entitees;
-using System.ComponentModel.DataAnnotations.Schema;
-using NorthwindDbBase.EntiteesConfiguration;
+
 
 namespace NorthwindDbBase.EntiteesConfiguration
 {

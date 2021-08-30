@@ -16,7 +16,6 @@ namespace NorthwindDbBase.EntiteesConfiguration
             builder.Property(p => p.TitleOfCourtesy).HasMaxLength(25);
             builder.Property(p => p.BirthDate).IsRequired(false);
             builder.Property(p => p.HireDate).IsRequired(false);
-
             builder.Property(p => p.Address).HasMaxLength(60);
             builder.Property(p => p.City).HasMaxLength(15);
             builder.Property(p => p.Region).HasMaxLength(15);
@@ -24,7 +23,6 @@ namespace NorthwindDbBase.EntiteesConfiguration
             builder.Property(p => p.Country).HasMaxLength(15);
             builder.Property(p => p.HomePhone).HasMaxLength(24);
             builder.Property(p => p.Extension).HasMaxLength(4);
-
             builder.Property(p => p.Photo).HasColumnType("IMAGE");
             builder.Property(p => p.PhotoPath).HasMaxLength(255);
 

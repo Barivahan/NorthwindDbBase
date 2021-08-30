@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NorthwindDbBase.Entitees;
-using System;
 
 namespace NorthwindDbBase.EntiteesConfiguration
 {

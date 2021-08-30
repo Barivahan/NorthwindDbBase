@@ -36,6 +36,9 @@ namespace NorthwindDbBase.Context
             modelBuilder.ApplyConfiguration<CustomerCustomerDemo>(new CustomerCustomerDemoConfiguration());
             modelBuilder.ApplyConfiguration<CustomerDemographics>(new CustomerDemographicConfiguration());
             modelBuilder.ApplyConfiguration<Employees>(new EmployeeConfiguration());
+            modelBuilder.ApplyConfiguration<EmployeeTerritories>(new EmployeeTerritorieConfiguration());
+            modelBuilder.ApplyConfiguration<Territories>(new TerritorieConfiguration());
+            modelBuilder.ApplyConfiguration<Regions>(new RegionConfiguration());
         }
     }
 }

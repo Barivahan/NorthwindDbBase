@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using NorthwindDbBase.Entitees;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
